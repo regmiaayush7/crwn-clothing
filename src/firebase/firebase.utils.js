@@ -12,9 +12,9 @@ const config = {
     measurementId: "G-D113Z8BNF3"
   };
 
+  //Creating and storing authenticated user in firebase
   export const createUserProfileDocument = async (userAuth, additionalData) => {
-    if(!userAuth) return;
-    
+    if(!userAuth) return; 
     const userRef = firestore.doc(`users/${userAuth.uid}`);
     
     const snapShot = await userRef.get();

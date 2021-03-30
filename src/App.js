@@ -18,7 +18,8 @@ class App extends React.Component {
   }
 
   unsubscribeFromAuth = null;
-
+  
+  //Adding stored users in firebase to App State
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if(userAuth){
