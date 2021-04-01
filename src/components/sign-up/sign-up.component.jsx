@@ -19,6 +19,7 @@ class SignUp extends React.Component {
     };
   }
 
+//Creates or registers User using email and password and then stores in firebase
   handleSubmit = async event => {
     event.preventDefault();
 

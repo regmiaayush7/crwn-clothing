@@ -14,12 +14,12 @@
             password: ''
         }
     }
-
+ //Authenticates user based on email and password inside firebase
     handleSubmit = async event => {
         event.preventDefault();
 
         const { email, password } = this.state;
-
+        
         try {
             await auth.signInWithEmailAndPassword(email, password);
             this.setState({ email: '', password: ''});
