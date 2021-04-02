@@ -32,6 +32,7 @@ const Header = ( { currentUser }) => (
     </div>
 );
 
+//mapStateToProps is used to bring state from root reducer to Components
 const mapStateToProps = state => ({
     currentUser: state.user.currentUser
 });
