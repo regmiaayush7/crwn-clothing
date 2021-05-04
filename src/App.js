@@ -44,6 +44,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
+           //signed in user cannot access the signin route 
           <Route exact path='/signin' render={() => this.props.currentUser? (<Redirect to ='/'/>): (<SignInAndSignUpPage/>)}/>
         </Switch>
       </div>
