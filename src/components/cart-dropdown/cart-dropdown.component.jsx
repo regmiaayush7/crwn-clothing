@@ -29,7 +29,7 @@ const CartDropdown = ({ cartItems, history, dispatch}) => (
       GO TO CHECKOUT</CustomButton>
     </div>
 );
-
+//createStructuredSelector it can fetch state without destructuring hassel
 const mapStateToProps = createStructuredSelector ({
     cartItems: selectCartItems
 });

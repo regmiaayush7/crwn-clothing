@@ -42,6 +42,7 @@ const Header = ( { currentUser, hidden}) => (
 );
 
 //mapStateToProps is used to bring state from root reducer to Components
+//createStructuredSelector it can fetch state without destructuring hassel
 const mapStateToProps = createStructuredSelector ({
     currentUser: selectCurrentUser,
     hidden: selectCartHidden
