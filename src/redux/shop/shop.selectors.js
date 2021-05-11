@@ -14,6 +14,7 @@ export const selectCollectionsForPreview = createSelector(
     collections => Object.keys(collections).map(key => collections[key])
     );
 
+//Fetching the objects according to the url parameter passed from component
 export const selectCollection = collectionUrlParam => 
     createSelector(
         [selectCollections],
