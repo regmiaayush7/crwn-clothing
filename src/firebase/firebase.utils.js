@@ -36,7 +36,41 @@ const config = {
     }
     return userRef;
   };
+ 
+//Adds redux data or state into firebase database
+  export const addCollectionAndDocuments = async (collectionKey, objectsToAdd ) => {
+    const collectionRef = firestore.collection(collectionKey);
 
+    const batch = firestore.batch();
+    objectsToAdd.forEach(obj => {
+      const newDocRef = collectionRef.doc();
+      batch.set(newDocRef, obj)
+    });
+
+    return await batch.commit();
+  };
+
+// Converts the firebase data which was in array to objects and adds route
+// to the collection
+  export const convertCollectionsnapShotToMap = collections  => {
+    const transformedCollection = collections.docs.map(doc => {
+      const { title, items } = doc.data();
+      
+      return{
+        routeName: encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items
+      };
+    });
+
+    return transformedCollection.reduce((accumulator, collection) => {
+      accumulator[collection.title.toLowerCase()] = collection;
+      return accumulator;
+    }, {});
+  
+  };
+  
   firebase.initializeApp(config);
 
   export const auth = firebase.auth();
