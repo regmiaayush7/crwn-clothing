@@ -11,32 +11,17 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
 
-import { auth, createUserProfileDocument} from './firebase/firebase.utils';
-
-import { setCurrentUser } from './redux/user/user.actions'; 
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
+import  { checkUserSession } from './redux/user/user.actions';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
   
   //Adding stored users in firebase to App State
   componentDidMount() {
-    const {setCurrentUser} = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if(userAuth){
-          const userRef = await createUserProfileDocument(userAuth);
-
-          userRef.onSnapshot(snapShot => {
-             setCurrentUser({
-                id: snapShot.id,
-                ...snapShot.data()
-            });
-          });
-      } 
-        setCurrentUser(userAuth);
-    }); 
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   componentWillUnmount() {
@@ -63,11 +48,10 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
-})
-
-//It is used to send(dispatch) action with payload to reducers for state update
-const mapDispatchToprops = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)) 
 });
 
-export default connect(mapStateToProps, mapDispatchToprops) (App);
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
